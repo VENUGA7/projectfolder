@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Place Order</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #80deea);
+      color: #333;
+      margin: 20px;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      color: #00796b;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 2rem;
+    }
+    .order-container {
+      background: white;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .order-container img {
+      display: block;
+      max-width: 150px;
+      margin: 0 auto 15px auto;
+      border-radius: 8px;
+    }
+    .order-details p {
+      font-size: 1.1rem;
+      margin: 6px 0;
+      color: #004d40;
+      font-weight: 600;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #00796b;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1.5px solid #00796b;
+      resize: vertical;
+      margin-top: 8px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #004d40;
+      box-shadow: 0 0 5px rgba(0, 77, 64, 0.5);
+    }
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 12px 0;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 700;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00796b;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .order-container {
+        max-width: 90%;
+        padding: 20px;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="order-container">
+    <h2>Order: {{ item.item_name }} ({{ item.category }})</h2>
+    <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.item_name }}">
+    <div class="order-details">
+      <p><strong>Expiry Date:</strong> {{ item.expiry }}</p>
+      <p><strong>Rate:</strong> ₹{{ item.rate }}</p>
+    </div>
+<form method="POST" action="{{ url_for('order_success') }}">
+  <input type="hidden" name="item_name" value="{{ item.item_name }}">
+  <input type="hidden" name="category" value="{{ item.category }}">
+  <input type="hidden" name="expiry" value="{{ item.expiry }}">
+  <input type="hidden" name="rate" value="{{ item.rate }}">
+  <input type="hidden" name="image" value="{{ item.image }}">
+  
+  <label for="address">Enter your delivery address:</label><br>
+  <textarea name="address" id="address" rows="4" cols="50" required></textarea><br><br>
+
+  <button type="submit">Place Order</button>
+</form>
+
+
+       <a href="{{ url_for('buy') }}" class="back-link">Back to Buy Page</a>
+  </div>
+
+</body>
+</html>

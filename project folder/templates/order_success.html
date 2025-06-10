@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Success</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dcedc8, #aed581);
+      color: #33691e;
+      margin: 20px;
+      padding: 0;
+    }
+    .success-container {
+      background: white;
+      max-width: 450px;
+      margin: 40px auto;
+      padding: 30px 35px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    h2 {
+      color: #558b2f;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+      color: #33691e;
+    }
+    h3 {
+      margin-top: 25px;
+      color: #33691e;
+      font-weight: 700;
+    }
+    .order-image {
+      max-width: 180px;
+      border-radius: 10px;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    a.back-link {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 25px;
+      background-color: #558b2f;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    a.back-link:hover {
+      background-color: #33691e;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .success-container {
+        max-width: 90%;
+        padding: 25px 20px;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      a.back-link {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="success-container">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order, {{ session['username'] }}.</p>
+
+    <h3>Order Details:</h3>
+    <p>Item: {{ item_name }} ({{ category }})</p>
+    <p>Expiry Date: {{ expiry }}</p>
+    <p>Rate: ₹{{ rate }}</p>
+    <p>Delivery Address: {{ address }}</p>
+
+    <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="{{ item_name }}" class="order-image">
+
+    <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+  </div>
+
+</body>
+</html>

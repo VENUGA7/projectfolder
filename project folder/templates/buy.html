@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f8ff, #d6eaf8);
+      margin: 20px;
+      color: #333;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .item-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: box-shadow 0.3s ease;
+      position: relative;
+    }
+    .item-card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    .item-card h3 {
+      margin-top: 0;
+      color: #2a6591;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    .item-details p {
+      margin: 5px 0;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .item-image {
+      display: block;
+      margin: 15px auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .buy-button {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    .buy-button:hover {
+      background-color: #1c5980;
+    }
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #2980b9;
+      border: 2px solid #2980b9;
+      padding: 10px 20px;
+      border-radius: 5px;
+      width: 140px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    a.back-link:hover {
+      background-color: #2980b9;
+      color: white;
+      box-shadow: 0 4px 10px rgba(41, 128, 185, 0.5);
+    }
+    p.no-items {
+      text-align: center;
+      font-size: 18px;
+      color: #999;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      .item-card {
+        max-width: 90%;
+        margin: 15px auto;
+        padding: 15px;
+      }
+      a.back-link {
+        width: 90%;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Available Items for Sale</h2>
+
+  {% if items %}
+    {% for item in items %}
+      <div class="item-card">
+        <h3>{{ item[0] }} ({{ item[1] }})</h3>
+        <div class="item-details">
+          <p><strong>Expiry Date:</strong> {{ item[2] }}</p>
+          <p><strong>Rate:</strong> ₹{{ item[3] }}</p>
+        </div>
+        <img class="item-image" src="{{ url_for('static', filename='uploads/' + item[4]) }}" alt="{{ item[0] }}">
+
+        <!-- Buy button form -->
+        <form method="POST" action="{{ url_for('order') }}">
+          <input type="hidden" name="item_name" value="{{ item[0] }}">
+          <input type="hidden" name="category" value="{{ item[1] }}">
+          <input type="hidden" name="expiry" value="{{ item[2] }}">
+          <input type="hidden" name="rate" value="{{ item[3] }}">
+          <input type="hidden" name="image" value="{{ item[4] }}">
+          <button type="submit" class="buy-button">Buy</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-items">No items available currently.</p>
+  {% endif %}
+
+  <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+</body>
+</html>

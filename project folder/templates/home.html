@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e6f7ff;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 15px 40px;
+      margin: 0 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🏠 Welcome, {{ username }}!</h2>
+  <p>You have successfully logged in to the Home Page.</p>
+
+  <div class="buttons">
+    <a href="/sale"><button>Sale</button></a>
+    <a href="/buy"><button>Buy</button></a>
+  </div>
+
+  <br><br>
+
+  <a href="/logout"><button>Logout</button></a>
+
+</body>
+</html>
+
